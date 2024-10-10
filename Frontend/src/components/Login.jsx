@@ -22,7 +22,11 @@ function Login() {
         console.log(res.data);
         if (res.data) {
           alert("login successful")
+          document.getElementById("my_modal_3").close();
+
+          window.location.reload();
         }
+        localStorage.setItem("Users",JSON.stringify(res.data.user));
         })
 
       .catch((err) => {

@@ -5,12 +5,12 @@ import User from "../model/user.model.js";
 
 export const signup=async (req,res)=>{
     try {
-        const {fullname,email,password}=req.body;
+        const {fullname,email,password}=req.body;//get the data from postman body
 const user=await User.findOne({email});
 if(user){
     return res.status(400).json({message:"User already Exists"})
 }
-const hashPassword=await bcrypt.hash(password,10)
+const hashPassword=await bcrypt.hash(password,10) //bcrypt use to unreadable(hash) password in database
 const createdUser=new User({
    fullname:fullname,
    email: email,
@@ -31,7 +31,7 @@ email: createdUser.email,
     }
 };
 
-// Login function
+
 // Login function
 export const login = async (req, res) => {
     try {

@@ -1,11 +1,13 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import Login from './Login'
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
 
 function SignUp() {
-
+const location=useLocation();
+const navigate=useNavigate();
+const from=location.state?.from?.pathname || "/";
   const {
     register,
     handleSubmit,
@@ -19,11 +21,13 @@ function SignUp() {
       email:data.email,
       password:data.password,
     }
+    //axios use to call api
     await axios.post("http://localhost:4001/user/signup",userInfo)
     .then((res)=>{ //on success it will work
       console.log(res.data)
       if(res.data){
         alert("Signup successfull")
+        navigate(from,{replace:true});
       }
       localStorage.setItem("Users",JSON.stringify(res.data.user));
     }).catch((err)=>{ //on fail this will work

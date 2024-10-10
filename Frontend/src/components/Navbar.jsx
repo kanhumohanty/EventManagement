@@ -1,8 +1,14 @@
 import React from 'react'
 import Login from './Login'
 import Logout from './Logout'
+import { useAuth } from '../context/AuthProvider'
+
 
 function Navbar() {
+
+  //if user is logged in then use to logout the user(it will handle logout ,login)
+const [authUser,setAuthUser]=useAuth();
+
   return (
    <>
    <div>
@@ -62,14 +68,16 @@ function Navbar() {
       clipRule="evenodd" />
   </svg>
 </label>
-
+{
+  authUser?<Logout/>: //if user is present then show logout button otherwise login button
   <div className="navbar-end">
     <a className="btn px-8 py-2 rounded-md bg-sky-100 text-red-500" onClick={()=>
         document.getElementById("my_modal_3").showModal()
     }>Login</a>
-    <Login />
-    <Logout/>
+    <Login />  
   </div>
+  }
+
 </div>
    </div>
    </>
